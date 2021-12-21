@@ -9,6 +9,8 @@ def train(
     text=None,
     img=None,
     text_min="",
+    spose1dim=42,
+    sposevec=None,  # TODO: txt file with spose dims
     lr = .07,
     image_size = 512,
     gradient_accumulate_every = 1,
@@ -41,6 +43,8 @@ def train(
         text=text,
         img=img,
         text_min=text_min,
+        spose1dim=spose1dim, 
+        sposevec=sposevec,
         lr = lr,
         image_size = image_size,
         gradient_accumulate_every = gradient_accumulate_every,
