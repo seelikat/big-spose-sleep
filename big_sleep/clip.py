@@ -158,6 +158,12 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
     return model, _transform()
 
 
+def spose_to_clip():
+
+    
+    return None
+
+
 def tokenize(texts: Union[str, List[str]], context_length: int = 77) -> torch.LongTensor:
     """
     Returns the tokenized representation of given input string(s)

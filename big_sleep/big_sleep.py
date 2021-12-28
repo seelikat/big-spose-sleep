@@ -23,7 +23,7 @@ from big_sleep.resample import resample
 from big_sleep.biggan import BigGAN
 from big_sleep.clip import load, tokenize
 
-assert torch.cuda.is_available(), 'CUDA must be available in order to use Big Sleep'
+#assert torch.cuda.is_available(), 'CUDA must be available in order to use Big Sleep'
 
 # graceful keyboard interrupt
 
