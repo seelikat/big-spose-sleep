@@ -379,9 +379,13 @@ class Imagine(nn.Module):
     def set_text(self, text):
         self.set_clip_encoding(text = text)
 
-    def create_clip_encoding(self, text=None, img=None, encoding=None):
+
+    def create_clip_encoding(self, text=None, img=None, spose=None, encoding=None):
+
         self.text = text
         self.img = img
+        self.spose = spose
+
         if encoding is not None:
             encoding = encoding.cuda()
         #elif self.create_story:
@@ -392,7 +396,10 @@ class Imagine(nn.Module):
             encoding = self.create_text_encoding(text)
         elif img is not None:
             encoding = self.create_img_encoding(img)
+        elif spose is not None:
+            encoding = self.create_spose_encoding(spose)
         return encoding
+
 
     def create_text_encoding(self, text):
         tokenized_text = tokenize(text).cuda()
@@ -414,18 +421,18 @@ class Imagine(nn.Module):
         return spose_encoding    
     
     
-    def encode_multiple_phrases(self, text, img=None, encoding=None, text_type="max"):
+    def encode_multiple_phrases(self, text, img=None, spose=None, encoding=None, text_type="max"):
         if text is not None and "|" in text:
-            self.encoded_texts[text_type] = [self.create_clip_encoding(text=prompt_min, img=img, encoding=encoding) for prompt_min in text.split("|")]
+            self.encoded_texts[text_type] = [self.create_clip_encoding(text=prompt_min, img=img, spose=spose, encoding=encoding) for prompt_min in text.split("|")]
         else:
-            self.encoded_texts[text_type] = [self.create_clip_encoding(text=text, img=img, encoding=encoding)]
+            self.encoded_texts[text_type] = [self.create_clip_encoding(text=text, img=img, spose=spose, encoding=encoding)]
 
-    def encode_max_and_min(self, text, img=None, encoding=None, text_min=""):
-        self.encode_multiple_phrases(text, img=img, encoding=encoding)
+    def encode_max_and_min(self, text, img=None, spose=None, encoding=None, text_min=""):
+        self.encode_multiple_phrases(text, img=img, spose=spose, encoding=encoding)
         if text_min is not None and text_min != "":
-            self.encode_multiple_phrases(text_min, img=img, encoding=encoding, text_type="min")
+            self.encode_multiple_phrases(text_min, img=img, spose=spose, encoding=encoding, text_type="min")
 
-    def set_clip_encoding(self, text=None, img=None, encoding=None, text_min=""):
+    def set_clip_encoding(self, text=None, img=None, spose=None, encoding=None, text_min=""):
         self.current_best_score = 0
         self.text = text
         self.text_min = text_min
