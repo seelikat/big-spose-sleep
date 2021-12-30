@@ -539,6 +539,16 @@ class CLIP(nn.Module):
 
         return x
 
+
+    def encode_spose(self, sposevec):
+        
+        clip_emb = torch.matmul(self.W, sposevec)
+        
+        pdb.set_trace()
+        
+        return clip_emb
+
+
     def forward(self, image, text):
         image_features = self.encode_image(image)
         text_features = self.encode_text(text)
