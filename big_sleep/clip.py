@@ -16,6 +16,7 @@ import torch
 from PIL import Image
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
 from tqdm import tqdm
+import numpy as np
 
 _MODELS = {
     "RN50": "https://openaipublic.azureedge.net/clip/models/afeb0e10f9e5a86da6080e35cf09123aca3b358a0c3e3b6c78a7b63bc04b6762/RN50.pt",
@@ -156,12 +157,6 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
         model.float()
 
     return model, _transform()
-
-
-def spose_to_clip():
-
-    
-    return None
 
 
 def tokenize(texts: Union[str, List[str]], context_length: int = 77) -> torch.LongTensor:
@@ -437,7 +432,9 @@ class CLIP(nn.Module):
                  vocab_size: int,
                  transformer_width: int,
                  transformer_heads: int,
-                 transformer_layers: int
+                 transformer_layers: int,
+                 # spose
+                 sposeclipW: np.ndarray   # TODO: Verwendung wo?
                  ):
         super().__init__()
 
@@ -541,11 +538,10 @@ class CLIP(nn.Module):
 
 
     def encode_spose(self, sposevec):
-        
         clip_emb = torch.matmul(self.W, sposevec)
-        
+
         pdb.set_trace()
-        
+
         return clip_emb
 
 

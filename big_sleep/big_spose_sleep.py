@@ -408,6 +408,11 @@ class Imagine(nn.Module):
             img_encoding = perceptor.encode_image(normed_img).detach()
         return img_encoding
     
+    def create_spose_encoding(self, sposevec):
+        with torch.no_grad():
+            spose_encoding = perceptor.encode_spose(sposevec).detach()
+        return spose_encoding    
+    
     
     def encode_multiple_phrases(self, text, img=None, encoding=None, text_type="max"):
         if text is not None and "|" in text:
