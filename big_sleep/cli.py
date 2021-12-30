@@ -9,7 +9,7 @@ def train(
     text=None,
     img=None,
     text_min="",
-    spose1dim=42,
+    spose1dim=None,
     sposevec=None,  # TODO: txt file with spose dims
     lr = .07,
     image_size = 512,

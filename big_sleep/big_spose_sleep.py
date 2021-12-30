@@ -298,6 +298,8 @@ class Imagine(nn.Module):
         img=None,
         encoding=None,
         text_min = "",
+        spose1dim=spose1dim,   # TODO: beide verarbeiten 
+        sposevec=sposevec,
         lr = .07,
         image_size = 512,
         gradient_accumulate_every = 1,
@@ -369,8 +371,18 @@ class Imagine(nn.Module):
         }
         # create img transform
         self.clip_transform = create_clip_img_transform(224)
+
+        # convert spose1vec or txt file vec to spose vec
+        if sposevec != None:
+            spose = np.loadtxt(sposevec)
+        elif spose1vec != None:
+            spose = np.zeros([49,])
+            spose[spose1vec-1] = 2.5  # highest observed value 2.5
+
+        assert(len(spose)==49)
+
         # create starting encoding
-        self.set_clip_encoding(text=text, img=img, encoding=encoding, text_min=text_min)
+        self.set_clip_encoding(text=text, img=img, spose=spose, encoding=encoding, text_min=text_min)
     
     @property
     def seed_suffix(self):
@@ -432,7 +444,7 @@ class Imagine(nn.Module):
         if text_min is not None and text_min != "":
             self.encode_multiple_phrases(text_min, img=img, spose=spose, encoding=encoding, text_type="min")
 
-    def set_clip_encoding(self, text=None, img=None, spose=None, encoding=None, text_min=""):
+    def set_clip_encoding(self, text=None, img=None, spose=None, encoding=None, text_min=""):  # TODO: called during Imagination.forward(), add spose
         self.current_best_score = 0
         self.text = text
         self.text_min = text_min
