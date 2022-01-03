@@ -433,8 +433,6 @@ class CLIP(nn.Module):
                  transformer_width: int,
                  transformer_heads: int,
                  transformer_layers: int,
-                 # spose
-                 sposeclipW: np.ndarray   # TODO: Verwendung wo?
                  ):
         super().__init__()
 
@@ -537,10 +535,11 @@ class CLIP(nn.Module):
         return x
 
 
-    def encode_spose(self, sposevec):
-        clip_emb = torch.matmul(self.W, sposevec)
+    def encode_spose(self, sposevec, W_spose_to_clip):
 
-        pdb.set_trace()
+        clip_emb = torch.matmul(W_spose_to_clip, sposevec)
+
+        pdb.set_trace()   # TODO: check clip_emb
 
         return clip_emb
 

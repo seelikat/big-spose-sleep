@@ -298,8 +298,9 @@ class Imagine(nn.Module):
         img=None,
         encoding=None,
         text_min = "",
-        spose1dim=spose1dim,   # TODO: beide verarbeiten 
+        spose1dim=spose1dim,
         sposevec=sposevec,
+        W_spose_to_clip=W_spose_to_clip,
         lr = .07,
         image_size = 512,
         gradient_accumulate_every = 1,
@@ -362,6 +363,8 @@ class Imagine(nn.Module):
 
         self.save_best = save_best
         self.current_best_score = 0
+        
+        self.W_spose_to_clip = loadmat(W_spose_to_clip)['W']
 
         self.open_folder = open_folder
         self.total_image_updates = (self.epochs * self.iterations) / self.save_every
@@ -409,7 +412,7 @@ class Imagine(nn.Module):
         elif img is not None:
             encoding = self.create_img_encoding(img)
         elif spose is not None:
-            encoding = self.create_spose_encoding(spose)
+            encoding = self.create_spose_encoding(spose, self.W_spose_to_clip)
         return encoding
 
 
@@ -444,6 +447,7 @@ class Imagine(nn.Module):
         if text_min is not None and text_min != "":
             self.encode_multiple_phrases(text_min, img=img, spose=spose, encoding=encoding, text_type="min")
 
+
     def set_clip_encoding(self, text=None, img=None, spose=None, encoding=None, text_min=""):  # TODO: called during Imagination.forward(), add spose
         self.current_best_score = 0
         self.text = text
@@ -457,7 +461,9 @@ class Imagine(nn.Module):
 
         self.text_path = text_path
         self.filename = Path(f'./{text_path}{self.seed_suffix}.png')
-        self.encode_max_and_min(text, img=img, encoding=encoding, text_min=text_min) # Tokenize and encode each prompt
+        self.encode_max_and_min(text, img=img, encoding=encoding, text_min=text_min) # Tokenize and encode each promp
+
+
 
     def reset(self):
         self.model.reset()
