@@ -74,4 +74,4 @@ def train(
     imagine()
 
 if __name__=="__main__":
-    train(spose=int(sys.argv[1]))
+    train(spose=int(sys.argv[1]))   # TODO: vorerst, geht so nicht
