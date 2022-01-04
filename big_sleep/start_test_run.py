@@ -10,7 +10,7 @@ def train(
     img=None,
     text_min="",
     spose=None,
-    W_spose_to_clip="W_aridge_spose_to_clip.mat",
+    W_spose_to_clip=None,
     lr = .07,
     image_size = 512,
     gradient_accumulate_every = 1,
