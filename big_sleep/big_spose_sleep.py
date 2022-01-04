@@ -434,9 +434,10 @@ class Imagine(nn.Module):
             img_encoding = perceptor.encode_image(normed_img).detach()
         return img_encoding
     
-    def create_spose_encoding(self, sposevec):
+
+    def create_spose_encoding(self, sposevec, W_spose_to_clip):
         with torch.no_grad():
-            spose_encoding = perceptor.encode_spose(sposevec).detach()
+            spose_encoding = perceptor.encode_spose(sposevec, W_spose_to_clip).detach()
         return spose_encoding    
     
     
