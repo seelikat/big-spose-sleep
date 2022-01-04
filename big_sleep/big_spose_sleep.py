@@ -29,7 +29,7 @@ from biggan import BigGAN
 from clip import load, tokenize
 
 from scipy.io import loadmat
-
+import numpy as np
 
 #assert torch.cuda.is_available(), 'CUDA must be available in order to use Big Sleep'
 
