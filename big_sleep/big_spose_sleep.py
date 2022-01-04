@@ -377,7 +377,7 @@ class Imagine(nn.Module):
         self.save_best = save_best
         self.current_best_score = 0
 
-        self.W_spose_to_clip = torch.tensor( loadmat("data/"+W_spose_to_clip)['W'] )
+        self.W_spose_to_clip = torch.tensor( loadmat("data/"+W_spose_to_clip)['W'], device="cuda" if torch.cuda.is_available() else "cpu" )
 
         self.open_folder = open_folder
         self.total_image_updates = (self.epochs * self.iterations) / self.save_every
@@ -471,12 +471,12 @@ class Imagine(nn.Module):
         if isinstance(spose, str):
             spose = np.loadtxt(spose)
             assert(len(spose)==49)
-            spose = torch.tensor(spose)
+            spose = torch.tensor(spose, device="cuda" if torch.cuda.is_available() else "cpu")
         elif isinstance(spose, int):
             sposedim = spose
             spose = np.zeros([49,])
             spose[sposedim-1] = 2.5     # highest observed value 2.5
-            spose = torch.tensor(spose)
+            spose = torch.tensor(spose, device="cuda" if torch.cuda.is_available() else "cpu")
 
         self.encode_max_and_min(text, img=img, spose=spose, encoding=encoding, text_min=text_min)  # Tokenize and encode each promp
 
