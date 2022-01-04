@@ -65,7 +65,7 @@ def open_folder(path):
         pass
 
 
-def create_text_path(text=None, img=None, encoding=None):
+def create_text_path(text=None, img=None, spose=None, encoding=None):
     input_name = ""
     if text is not None:
         input_name += text
@@ -78,6 +78,11 @@ def create_text_path(text=None, img=None, encoding=None):
         input_name += "_" + img_name
     if encoding is not None:
         input_name = "your_encoding"
+    if spose is not None: 
+        if spose[:-4] == ".txt":
+            spose = spose[:-4]
+        input_name = "spose-{}".format(spose)
+        
     return input_name.replace("-", "_").replace(",", "").replace(" ", "_").replace("|", "--").strip('-_')[:255]
 
 # tensor helpers
@@ -298,8 +303,7 @@ class Imagine(nn.Module):
         img=None,
         encoding=None,
         text_min = "",
-        spose1dim=spose1dim,
-        sposevec=sposevec,
+        spose=spose,
         W_spose_to_clip=W_spose_to_clip,
         lr = .07,
         image_size = 512,
@@ -375,15 +379,6 @@ class Imagine(nn.Module):
         # create img transform
         self.clip_transform = create_clip_img_transform(224)
 
-        # convert spose1vec or txt file vec to spose vec
-        if sposevec != None:
-            spose = np.loadtxt(sposevec)
-        elif spose1vec != None:
-            spose = np.zeros([49,])
-            spose[spose1vec-1] = 2.5  # highest observed value 2.5
-
-        assert(len(spose)==49)
-
         # create starting encoding
         self.set_clip_encoding(text=text, img=img, spose=spose, encoding=encoding, text_min=text_min)
     
@@ -455,13 +450,22 @@ class Imagine(nn.Module):
         
         if len(text_min) > 0:
             text = text + "_wout_" + text_min[:255] if text is not None else "wout_" + text_min[:255]
-        text_path = create_text_path(text=text, img=img, encoding=encoding)
+
+        text_path = create_text_path(text=text, img=img, spose=spose, encoding=encoding)
         if self.save_date_time:
             text_path = datetime.now().strftime("%y%m%d-%H%M%S-") + text_path
-
         self.text_path = text_path
         self.filename = Path(f'./{text_path}{self.seed_suffix}.png')
-        self.encode_max_and_min(text, img=img, encoding=encoding, text_min=text_min) # Tokenize and encode each promp
+
+        # convert spose or txt file vec to spose vec
+        if spose != None:
+            spose = np.loadtxt(spose)
+        elif spose != None:
+            spose = np.zeros([49,])
+            spose[spose-1] = 2.5     # highest observed value 2.5
+        assert(len(spose)==49)
+
+        self.encode_max_and_min(text, img=img, spose=spose, encoding=encoding, text_min=text_min)  # Tokenize and encode each promp
 
 
 
@@ -469,6 +473,7 @@ class Imagine(nn.Module):
         self.model.reset()
         self.model = self.model.cuda()
         self.optimizer = Adam(self.model.model.latents.parameters(), self.lr)
+
 
     def train_step(self, epoch, i, pbar=None):
         total_loss = 0
@@ -507,6 +512,7 @@ class Imagine(nn.Module):
                     save_image(image, Path(f'./{self.text_path}{self.seed_suffix}.best.png'))
 
         return out, total_loss
+
 
     def forward(self):
         penalizing = ""
