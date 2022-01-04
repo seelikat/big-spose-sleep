@@ -87,8 +87,9 @@ def create_text_path(text=None, img=None, spose=None, encoding=None):
     if encoding is not None:
         input_name = "your_encoding"
     if spose is not None: 
-        if spose[:-4] == ".txt":
-            spose = spose[:-4]
+        if isinstance(spose, str):
+            if spose[:-4] == ".txt":
+                spose = spose[:-4]
         input_name = "spose-{}".format(spose)
         
     return input_name.replace("-", "_").replace(",", "").replace(" ", "_").replace("|", "--").strip('-_')[:255]
