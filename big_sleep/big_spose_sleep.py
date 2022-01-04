@@ -377,7 +377,7 @@ class Imagine(nn.Module):
         self.save_best = save_best
         self.current_best_score = 0
 
-        self.W_spose_to_clip = loadmat("data/"+W_spose_to_clip)['W']
+        self.W_spose_to_clip = torch.tensor( loadmat("data/"+W_spose_to_clip)['W'] )
 
         self.open_folder = open_folder
         self.total_image_updates = (self.epochs * self.iterations) / self.save_every
