@@ -74,4 +74,4 @@ def train(
     imagine()
 
 def main():
-    train(spose=42)
+    train(text="mass formation psychosis")
