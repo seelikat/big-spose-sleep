@@ -7,7 +7,7 @@ from torch import nn
 from pathlib import Path
 
 import hashlib
-import os
+import os, pdb
 import urllib
 import warnings
 from typing import Union, List
@@ -17,6 +17,7 @@ from PIL import Image
 from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
 from tqdm import tqdm
 import numpy as np
+
 
 _MODELS = {
     "RN50": "https://openaipublic.azureedge.net/clip/models/afeb0e10f9e5a86da6080e35cf09123aca3b358a0c3e3b6c78a7b63bc04b6762/RN50.pt",
