@@ -18,10 +18,16 @@ import torchvision.transforms as T
 from PIL import Image
 from tqdm import tqdm, trange
 
-from big_sleep.ema import EMA
-from big_sleep.resample import resample
-from big_sleep.biggan import BigGAN
-from big_sleep.clip import load, tokenize
+#from big_sleep.ema import EMA
+#from big_sleep.resample import resample
+#from big_sleep.biggan import BigGAN
+#from big_sleep.clip import load, tokenize
+
+from ema import EMA
+from resample import resample
+from biggan import BigGAN
+from clip import load, tokenize
+
 
 #assert torch.cuda.is_available(), 'CUDA must be available in order to use Big Sleep'
 

@@ -1,6 +1,6 @@
 import fire
 import random as rnd
-from big_sleep import Imagine, version
+from big_spose_sleep import Imagine, version
 from pathlib import Path
 from .version import __version__;
 
