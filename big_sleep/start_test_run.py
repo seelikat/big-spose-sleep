@@ -74,4 +74,4 @@ def train(
     imagine()
 
 if __name__=="__main__":
-    train(spose=42)
+    train(spose=11)

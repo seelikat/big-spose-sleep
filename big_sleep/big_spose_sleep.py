@@ -475,7 +475,7 @@ class Imagine(nn.Module):
         elif isinstance(spose, int):
             sposedim = spose
             spose = np.zeros([49,])
-            spose[sposedim-1] = 2.5     # highest observed value 2.5
+            spose[sposedim-1] = 3.5     # highest observed value 3.5
             spose = torch.tensor(spose, device="cuda" if torch.cuda.is_available() else "cpu")
 
         self.encode_max_and_min(text, img=img, spose=spose, encoding=encoding, text_min=text_min)  # Tokenize and encode each promp
