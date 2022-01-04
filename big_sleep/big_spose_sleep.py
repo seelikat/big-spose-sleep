@@ -303,7 +303,7 @@ class Imagine(nn.Module):
         img=None,
         encoding=None,
         text_min = "",
-        spose=spose,
+        spose=None,
         W_spose_to_clip=W_spose_to_clip,
         lr = .07,
         image_size = 512,
