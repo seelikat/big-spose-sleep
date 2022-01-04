@@ -1,8 +1,7 @@
 import fire
 import random as rnd
-from big_spose_sleep import Imagine, version
+from big_spose_sleep import Imagine
 from pathlib import Path
-from .version import __version__;
 
 
 def train(
@@ -34,7 +33,7 @@ def train(
     num_cutouts = 128,
     center_bias = False,
 ):
-    print(f'Starting up... v{__version__}')
+    print(f'Starting up... ')
 
     if random:
         seed = rnd.randint(0, 1e6)
