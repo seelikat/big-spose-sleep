@@ -73,5 +73,5 @@ def train(
 
     imagine()
 
-def main():
-    train(text="mass formation psychosis")
+if __name__=="__main__":
+    train(spose=42)
