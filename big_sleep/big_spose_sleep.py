@@ -467,16 +467,14 @@ class Imagine(nn.Module):
         self.filename = Path(f'./{text_path}{self.seed_suffix}.png')
 
         # convert spose or txt file vec to spose vec
-        if spose != None:
+        if isinstance(spose, str):
             spose = np.loadtxt(spose)
-        elif spose != None:
+        elif isinstance(spose, int):
             spose = np.zeros([49,])
             spose[spose-1] = 2.5     # highest observed value 2.5
         assert(len(spose)==49)
 
         self.encode_max_and_min(text, img=img, spose=spose, encoding=encoding, text_min=text_min)  # Tokenize and encode each promp
-
-
 
     def reset(self):
         self.model.reset()
