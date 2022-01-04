@@ -2,7 +2,7 @@ import fire
 import random as rnd
 from big_spose_sleep import Imagine
 from pathlib import Path
-
+import sys
 
 def train(
     text=None,
@@ -74,4 +74,4 @@ def train(
     imagine()
 
 if __name__=="__main__":
-    train(spose=11)
+    train(spose=sys.argv[1])
