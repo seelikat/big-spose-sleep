@@ -537,11 +537,7 @@ class CLIP(nn.Module):
 
 
     def encode_spose(self, sposevec, W_spose_to_clip):
-
         clip_emb = torch.matmul(sposevec, W_spose_to_clip)
-
-        pdb.set_trace()   # TODO: check clip_emb
-
         return clip_emb
 
 
