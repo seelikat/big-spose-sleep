@@ -75,5 +75,5 @@ def train(
 
 if __name__=="__main__":
 
-    spose = sys.argv[1] if sys.argv[1]>2 else int(sys.argv[1])
+    spose = sys.argv[1] if len(sys.argv[1])>2 else int(sys.argv[1])
     train(spose=spose)
