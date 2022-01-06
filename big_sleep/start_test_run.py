@@ -74,4 +74,6 @@ def train(
     imagine()
 
 if __name__=="__main__":
-    train(spose=int(sys.argv[1]))   # TODO: vorerst, geht so nicht
+
+    spose = sys.argv[1] if sys.argv[1]>2 else int(sys.argv[1])
+    train(spose=spose)
