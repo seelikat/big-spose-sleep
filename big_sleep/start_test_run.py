@@ -1,6 +1,6 @@
 import fire
 import random as rnd
-from big_spose_sleep import Imagine
+from big_brain_sleep import Imagine
 from pathlib import Path
 import sys
 
