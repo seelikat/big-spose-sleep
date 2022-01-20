@@ -383,7 +383,7 @@ class Imagine(nn.Module):
         elif spose_to_clip_model[-3:]=="pkl": 
             self.modeltype = 'xgboost'
             with open('../../'+spose_to_clip_model, 'rb') as f:
-            self.spose_to_clip_model = pickle.load(f)
+                self.spose_to_clip_model = pickle.load(f)
 
         self.open_folder = open_folder
         self.total_image_updates = (self.epochs * self.iterations) / self.save_every
