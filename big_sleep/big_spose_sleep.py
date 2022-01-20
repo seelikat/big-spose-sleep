@@ -421,7 +421,7 @@ class Imagine(nn.Module):
         elif img is not None:
             encoding = self.create_img_encoding(img)
         elif spose is not None:
-            encoding = self.create_spose_encoding(spose, self.spose_to_clip_model, self.modeltype)
+            encoding = self.create_spose_encoding(spose, self.spose_to_clip_model)
         return encoding
 
 
