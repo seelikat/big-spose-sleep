@@ -541,6 +541,7 @@ class CLIP(nn.Module):
             clip_emb = torch.tensor( spose_to_clip_model.predict( sposevec.cpu().numpy().reshape(1, -1) ), device='cuda:0' )
         elif modeltype == 'linear':
             clip_emb = torch.matmul(sposevec, spose_to_clip_model)
+        pdb.set_trace()
         return clip_emb
 
 
