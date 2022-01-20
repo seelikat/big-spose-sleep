@@ -1,6 +1,5 @@
-import os
-import sys
-import subprocess
+import os, sys
+import subprocess, pickle
 import signal
 import string
 import re
