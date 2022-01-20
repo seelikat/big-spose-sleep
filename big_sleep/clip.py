@@ -535,11 +535,12 @@ class CLIP(nn.Module):
 
         return x
 
-
-    def encode_spose(self, sposevec, W_spose_to_clip):
-        clip_emb = torch.matmul(sposevec, W_spose_to_clip)
+    def encode_spose(self, sposevec, spose_to_clip_model, modeltype='xgboost'):
+        if modeltype == 'xgboost':
+            clip_emb = spose_to_clip_model.predict(sposevec)
+        elif modeltype == 'linear':
+            clip_emb = torch.matmul(sposevec, spose_to_clip_model)
         return clip_emb
-
 
     def forward(self, image, text):
         image_features = self.encode_image(image)

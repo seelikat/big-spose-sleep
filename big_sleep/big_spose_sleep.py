@@ -313,7 +313,7 @@ class Imagine(nn.Module):
         encoding=None,
         text_min = "",
         spose=None,
-        W_spose_to_clip=None,
+        spose_to_clip_model=None,
         lr = .07,
         image_size = 512,
         gradient_accumulate_every = 1,
@@ -377,7 +377,13 @@ class Imagine(nn.Module):
         self.save_best = save_best
         self.current_best_score = 0
 
-        self.W_spose_to_clip = torch.tensor( loadmat("data/"+W_spose_to_clip)['W'], device="cuda" if torch.cuda.is_available() else "cpu" )
+        if spose_to_clip_model[-3:]=="mat": 
+            self.modeltype = 'linear'
+            self.spose_to_clip_model = torch.tensor( loadmat("data/"+spose_to_clip_model)['W'], device="cuda" if torch.cuda.is_available() else "cpu" )
+        elif spose_to_clip_model[-3:]=="pkl": 
+            self.modeltype = 'xgboost'
+            with open('../../'+spose_to_clip_model, 'rb') as f:
+            self.spose_to_clip_model = pickle.load(f)
 
         self.open_folder = open_folder
         self.total_image_updates = (self.epochs * self.iterations) / self.save_every
@@ -416,7 +422,7 @@ class Imagine(nn.Module):
         elif img is not None:
             encoding = self.create_img_encoding(img)
         elif spose is not None:
-            encoding = self.create_spose_encoding(spose, self.W_spose_to_clip)
+            encoding = self.create_spose_encoding(spose, self.spose_to_clip_model, self.modeltype)
         return encoding
 
 
@@ -433,13 +439,12 @@ class Imagine(nn.Module):
         with torch.no_grad():
             img_encoding = perceptor.encode_image(normed_img).detach()
         return img_encoding
-    
 
-    def create_spose_encoding(self, sposevec, W_spose_to_clip):
-        with torch.no_grad():
-            spose_encoding = perceptor.encode_spose(sposevec, W_spose_to_clip).detach()
-        return spose_encoding    
-    
+
+    def create_spose_encoding(self, sposevec, spose_to_clip_model):    
+        spose_encoding = perceptor.encode_spose(sposevec, spose_to_clip_model, self.modeltype).detach()
+        return spose_encoding
+
     
     def encode_multiple_phrases(self, text, img=None, spose=None, encoding=None, text_type="max"):
         if text is not None and "|" in text:
