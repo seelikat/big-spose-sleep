@@ -442,7 +442,7 @@ class Imagine(nn.Module):
 
     def create_spose_encoding(self, sposevec, spose_to_clip_model):
         with torch.no_grad():
-            spose_encoding = perceptor.encode_spose(sposevec, spose_to_clip_model, self.modeltype).detach()
+            spose_encoding = perceptor.encode_spose(sposevec, spose_to_clip_model, self.modeltype).cpu().detach()   # .cpu() was not there before
         return spose_encoding
 
     
