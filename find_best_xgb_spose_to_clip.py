@@ -29,6 +29,7 @@ if __name__=="__main__":
                                                                            random_state=42)
 
     ### run cv ###
+    # TODO Sebastian: Use Bayesian CV instead: https://www.kaggle.com/tilii7/bayesian-optimization-of-xgboost-parameters
 
     regressor = xgb.XGBRegressor()
     multiregressor = MultiOutputRegressor( estimator=regressor ) 

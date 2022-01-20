@@ -447,6 +447,7 @@ class Imagine(nn.Module):
         #torch.Size([1, 512])
         # (Pdb) sposevec.shape
         #torch.Size([49])
+        pdb.set_trace()
         return spose_encoding
 
     
