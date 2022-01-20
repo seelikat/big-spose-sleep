@@ -38,7 +38,6 @@ if __name__=="__main__":
                       'estimator__learning_rate': [0.05, 0.1, 0.15, 0.20],
                       'estimator__min_child_weight': [1, 2, 3, 4]   }
 
-    # Set up the random search with 4-fold cross validation
     random_cv = RandomizedSearchCV( estimator=multiregressor,
                                     param_distributions=hyparam_grid,
                                     cv=5, n_iter=50, n_jobs=32, 
