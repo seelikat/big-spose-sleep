@@ -443,12 +443,10 @@ class Imagine(nn.Module):
     def create_spose_encoding(self, sposevec, spose_to_clip_model):
         with torch.no_grad():
             spose_encoding = perceptor.encode_spose(sposevec, spose_to_clip_model, self.modeltype).detach()
-        pdb.set_trace()  # TODO check data matrices
         # (Pdb) spose_encoding.shape
         #torch.Size([1, 512])
         # (Pdb) sposevec.shape
         #torch.Size([49])
-
         return spose_encoding
 
     
