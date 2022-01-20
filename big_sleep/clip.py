@@ -538,7 +538,7 @@ class CLIP(nn.Module):
 
     def encode_spose(self, sposevec, spose_to_clip_model, modeltype):
         if modeltype == 'xgboost':
-            clip_emb = torch.tensor( spose_to_clip_model.predict( sposevec.cpu().numpy().reshape(1, -1) ), device='cuda:0' )
+            clip_emb = torch.tensor( spose_to_clip_model.predict( sposevec.cpu().numpy().reshape(1, -1) ), device='cuda:0' ).squeeze()
         elif modeltype == 'linear':
             clip_emb = torch.matmul(sposevec, spose_to_clip_model)
         pdb.set_trace()

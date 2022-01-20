@@ -9,7 +9,7 @@ def train(
     img=None,
     text_min="",
     spose=None,
-    spose_to_clip_model="W_aridge_spose_to_clip.mat", #"xgb_spose_to_clip_defaultmodel.pkl",  #"W_aridge_spose_to_clip.mat",
+    spose_to_clip_model="xgb_spose_to_clip_defaultmodel.pkl", #"W_aridge_spose_to_clip.mat", #"xgb_spose_to_clip_defaultmodel.pkl"
     lr = .07,
     image_size = 512,
     gradient_accumulate_every = 1,
