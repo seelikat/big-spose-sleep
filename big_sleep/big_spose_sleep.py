@@ -444,9 +444,10 @@ class Imagine(nn.Module):
         with torch.no_grad():
             spose_encoding = perceptor.encode_spose(sposevec, spose_to_clip_model, self.modeltype).detach()
         # (Pdb) spose_encoding.shape
-        #torch.Size([1, 512])
+        #torch.Size([512])  # anderer dtype? float64 statt 32?
         # (Pdb) sposevec.shape
         #torch.Size([49])
+        # 
         pdb.set_trace()
         return spose_encoding
 

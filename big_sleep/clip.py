@@ -546,7 +546,6 @@ class CLIP(nn.Module):
         return clip_emb
 
 
-
     def forward(self, image, text):
         image_features = self.encode_image(image)
         text_features = self.encode_text(text)
