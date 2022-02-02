@@ -1,3 +1,5 @@
+import os
+os.environ['CUDA_VISIBLE_DEVICES']='0'
 import fire
 import random as rnd
 from big_spose_sleep import Imagine

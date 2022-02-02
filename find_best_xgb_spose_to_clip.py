@@ -30,6 +30,28 @@ if __name__=="__main__":
 
     ### run cv ###
     # TODO Sebastian: Use Bayesian CV instead: https://www.kaggle.com/tilii7/bayesian-optimization-of-xgboost-parameters
+    # TODO Florians xgb project: https://github.com/florianmahner/Machine-Learning-In-Practice/tree/master/petfinder
+    # TODO: multi-output regression exists now: https://xgboost.readthedocs.io/en/latest/tutorials/multioutput.html
+    # TODO: regression: https://xgboost.readthedocs.io/en/latest/python/examples/multioutput_regression.html#sphx-glr-python-examples-multioutput-regression-py
+
+    """
+    d_train = xgb.DMatrix(X_train, label=y_train)
+    d_valid = xgb.DMatrix(X_valid, label=y_valid)
+
+    watchlist = [(d_train, 'train'), (d_valid, 'valid')]
+
+    xgb_params = {'objective' : 'multi:softmax',
+                  'eval_metric' : 'mlogloss',
+                  'eta' : 0.05,
+                  'max_depth' : 4,
+                  'num_class' : 5,
+                  'lambda' : 0.8
+    }
+
+    print('Fitting XGBoost: ')
+    bst = xgb.train(xgb_params, d_train, 400, watchlist, early_stopping_rounds=50, verbose_eval=0)
+    """
+
 
     regressor = xgb.XGBRegressor()
     multiregressor = MultiOutputRegressor( estimator=regressor ) 
@@ -55,7 +77,7 @@ if __name__=="__main__":
     import IPython; IPython.embed()
 
     # save model
-    with open('xgb_spose_to_clip_cvbestmodel.pkl','wb') as f:
+    with open('xgb_spose_to_clip_cvbestmodel.pkl', 'wb') as f:
         pickle.dump(modelfull,f)
 
 
