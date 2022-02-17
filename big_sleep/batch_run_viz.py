@@ -1,4 +1,5 @@
 import os, glob
+import subprocess
 os.environ['CUDA_VISIBLE_DEVICES']='0'
 import fire
 import random as rnd
@@ -14,5 +15,5 @@ if __name__=="__main__":
 
     for ri in range(1, reps): 
         for sposeprofilefn in sposeprofiles: 
-            os.system( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn )  # does wait for completion
+            subprocess.call( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py spose_" + sposeprofilefn )
             os.rename( sposeprofilefn+".png", sposeprofilefn + "_" + str(ri) + ".png" )
