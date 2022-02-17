@@ -13,6 +13,6 @@ if __name__=="__main__":
     sposeprofiles = glob.glob( "./*profile.txt" )
 
     for ri in range(1, reps): 
-        for sposeprofilefn in enumerate(sposeprofiles):
+        for sposeprofilefn in sposeprofiles: 
             os.system( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn )  # does wait for completion
             os.rename( sposeprofilefn+".png", sposeprofilefn + "_" + str(ri) + ".png" )
