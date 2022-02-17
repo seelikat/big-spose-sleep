@@ -11,7 +11,7 @@ import sys
 if __name__=="__main__":
 
     reps = 5
-    sposeprofiles = glob.glob( "./*profile.txt" )
+    sposeprofiles = glob.glob( "*profile.txt" )
 
     for ri in range(1, reps): 
         for sposeprofilefn in sposeprofiles: 
