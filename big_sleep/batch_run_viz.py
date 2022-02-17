@@ -15,5 +15,6 @@ if __name__=="__main__":
 
     for ri in range(1, reps): 
         for sposeprofilefn in sposeprofiles: 
-            subprocess.call( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py spose_" + sposeprofilefn )
-            os.rename( sposeprofilefn+".png", sposeprofilefn + "_" + str(ri) + ".png" )
+            print(sposeprofilefn)
+            subprocess.call( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn )
+            os.rename( 'spose_'+sposeprofilefn+".png", sposeprofilefn + "_" + str(ri) + ".png" )
