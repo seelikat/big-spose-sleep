@@ -48,7 +48,7 @@ if __name__=="__main__":
         for value, index in zip(values, indices):
             print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
 
-        classpredline = f"{imgfn}: {} | {} | {} | {} | {}".format(topclasses)
+        classpredline = imgfn+": {} | {} | {} | {} | {}".format(topclasses)
 
         classpredfile.write('%s\n' % classpredline)
     
