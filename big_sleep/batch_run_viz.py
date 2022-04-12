@@ -8,6 +8,7 @@ from pathlib import Path
 import sys
 
 
+# TODO: redo with --larger model
 if __name__=="__main__":
 
     reps = 5
@@ -17,6 +18,6 @@ if __name__=="__main__":
         for sposeprofilefn in sposeprofiles: 
             print(sposeprofilefn)
             #subprocess.Popen( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn , cwd=os.getcwd())
-            os.system( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn )
+            os.system( "/LOCAL/kamue/anaconda3/bin/python synth_image.py " + sposeprofilefn )
             sposeprofilefn = sposeprofilefn.replace('-', '_')
             os.rename( 'spose_'+sposeprofilefn+".png", sposeprofilefn + "_" + str(ri) + ".png" )

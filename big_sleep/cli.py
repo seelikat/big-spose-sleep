@@ -4,7 +4,6 @@ from big_sleep import Imagine, version
 from pathlib import Path
 from .version import __version__;
 
-
 def train(
     text=None,
     img=None,
