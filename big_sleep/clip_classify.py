@@ -54,6 +54,7 @@ if __name__=="__main__":
         #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
 
         topclasses = [classes[idx] for idx in indices]
+        print(topclasses)
         classpredline = imgfn+": {} | {} | {} | {} | {}".format( topclasses )
 
         classpredfile.write('%s\n' % classpredline)
