@@ -55,7 +55,7 @@ if __name__=="__main__":
 
         topclasses = [classes[idx] for idx in indices]
         print(topclasses)
-        classpredline = imgfn+": " + topclasses.join(',')
+        classpredline = imgfn+": " + ','.join(topclasses)
 
         classpredfile.write('%s\n' % classpredline)
     
