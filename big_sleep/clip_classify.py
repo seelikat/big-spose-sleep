@@ -53,6 +53,7 @@ if __name__=="__main__":
         #for value, index in zip(values, indices):
         #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
         
+        print(indices)
         classpredline = imgfn+": {} | {} | {} | {} | {}".format( [classes[idx] for idx in indices] )
 
         classpredfile.write('%s\n' % classpredline)
