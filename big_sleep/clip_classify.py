@@ -51,7 +51,6 @@ if __name__=="__main__":
         classpredline = f"{imgfn}: {} | {} | {} | {} | {}".format(topclasses)
 
         classpredfile.write('%s\n' % classpredline)
-
     
         break
     
