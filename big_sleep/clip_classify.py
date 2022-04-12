@@ -55,7 +55,7 @@ if __name__=="__main__":
 
         topclasses = [classes[idx] for idx in indices]
         print(topclasses)
-        classpredline = imgfn+": {} | {} | {} | {} | {}".format( topclasses )
+        classpredline = imgfn+": " + topclasses.join(',')
 
         classpredfile.write('%s\n' % classpredline)
     
