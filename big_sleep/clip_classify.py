@@ -49,11 +49,11 @@ if __name__=="__main__":
         values, indices = similarity[0].topk(5)
 
         # Print the result
-        print("\nTop predictions:\n")
-        for value, index in zip(values, indices):
-            print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
-
-        classpredline = imgfn+": {} | {} | {} | {} | {}".format(topclasses)
+        #print("\nTop predictions:\n")
+        #for value, index in zip(values, indices):
+        #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
+        
+        classpredline = imgfn+": {} | {} | {} | {} | {}".format( [classes[idx] for idx in indices] )
 
         classpredfile.write('%s\n' % classpredline)
     
