@@ -7,15 +7,15 @@ from torchvision.datasets import CIFAR100
 
 if __name__=="__main__":
     
-    onlocal = True
+    onlocal = False
     vocab = "data/things_classes.txt"   # imagenet21k_wordnet_lemmas.txt things_classes.txt
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
     if onlocal:
         imgdir = '/Users/katja/ownCloud/Share/roi_profiles'
     else:
-        imgdir = None
-    
+        imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
+
     imgfns = glob.glob( os.path.join(imgdir, '*.png') )
 
     classes = []
@@ -25,7 +25,7 @@ if __name__=="__main__":
             classes.append( line.strip() )
 
     # debug: find max number of classes (must be processed in batches)
-    classes = classes[:1000]
+    classes = classes[:1500]
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
