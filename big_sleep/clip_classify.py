@@ -25,7 +25,7 @@ if __name__=="__main__":
             classes.append( line.strip() )
 
     # debug: find max number of classes (must be processed in batches)
-    classes = classes[:1500]
+    classes = classes[:1200]
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
