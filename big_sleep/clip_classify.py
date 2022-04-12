@@ -3,6 +3,7 @@ import glob
 import clip
 import torch
 import pdb
+from PIL import Image
 from torchvision.datasets import CIFAR100
 
 if __name__=="__main__":
