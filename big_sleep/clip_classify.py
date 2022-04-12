@@ -2,6 +2,7 @@ import os
 import glob
 import clip
 import torch
+import pdb
 from torchvision.datasets import CIFAR100
 
 if __name__=="__main__":
@@ -22,6 +23,9 @@ if __name__=="__main__":
         lines = handle.readlines()
         for line in lines:
             classes.append( line.strip() )
+
+    # debug: find max number of classes (must be processed in batches)
+    classes = classes[:1000]
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
