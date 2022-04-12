@@ -52,9 +52,9 @@ if __name__=="__main__":
         #print("\nTop predictions:\n")
         #for value, index in zip(values, indices):
         #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
-        
-        print(indices)
-        classpredline = imgfn+": {} | {} | {} | {} | {}".format( [classes[idx] for idx in indices] )
+
+        topclasses = [classes[idx] for idx in indices]
+        classpredline = imgfn+": {} | {} | {} | {} | {}".format( topclasses )
 
         classpredfile.write('%s\n' % classpredline)
     
