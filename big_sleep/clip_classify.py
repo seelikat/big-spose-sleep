@@ -25,7 +25,7 @@ if __name__=="__main__":
     else:
         imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
 
-    imgfns = glob.glob( os.path.join(imgdir, '*.png') )
+    imgfns = glob.glob( os.path.join(imgdir, '*.{png,jpg}') )
 
     classes = []
     with open(vocab, 'r') as handle:
