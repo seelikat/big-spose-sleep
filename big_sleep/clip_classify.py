@@ -24,8 +24,8 @@ if __name__=="__main__":
         imgdir = '/Users/katja/ownCloud/Share/roi_profiles'
         #imgdir = '/Users/katja/Documents/Data/THINGS/thingstestset'
     else:
-        #imgdir = '/LOCAL/kamue/thingstestset'
-        imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
+        imgdir = '/LOCAL/kamue/thingstestset'
+        #imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
 
     imgfns = glob.glob( os.path.join(imgdir, '*.jpg') )
 
