@@ -67,7 +67,7 @@ if __name__=="__main__":
     for imgfn in imgfns:
         
         # take top 5 classes
-        vals, idxs = class_simils[imgfn][0].topk(5)   # auto-chooses last dimension
+        vals, idxs = class_simils[imgfn][0].topk(15)   # auto-chooses last dimension
 
         classpredline = imgfn.split('/')[-1]
         for val, idx in zip(vals, idxs):
