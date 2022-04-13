@@ -60,8 +60,8 @@ if __name__=="__main__":
 
         cur_i += len(classesbatch)
 
-        #del text_features
-        #torch.cuda.empty_cache()
+        del text_features
+        torch.cuda.empty_cache()
 
         break_i += 1
         if break_i > 5:
