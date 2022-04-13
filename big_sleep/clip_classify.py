@@ -70,7 +70,7 @@ if __name__=="__main__":
         # take top 5 classes
         vals, idxs = class_simils[imgfn][0].topk(5)   # auto-chooses last dimension
 
-        classpredline = imgfn
+        classpredline = imgfn.split('/')[-1]
         for val, idx in zip(vals, idxs):
             classpredline += f",{100 * val.item():.2f}%|" + classes[idx]
 
