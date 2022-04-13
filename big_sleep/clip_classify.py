@@ -66,7 +66,7 @@ if __name__=="__main__":
     classpredfile = open(outfile, 'w')
     for imgfn in imgfns:
         
-        # take top 5 classes
+        # take top 15 classes
         vals, idxs = class_simils[imgfn][0].topk(15)   # auto-chooses last dimension
 
         classpredline = imgfn.split('/')[-1]
