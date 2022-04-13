@@ -6,11 +6,16 @@ import pdb
 from PIL import Image
 from torchvision.datasets import CIFAR100
 
+def chunker(seq, size):
+    return (seq[pos:pos + size] for pos in range(0, len(seq), size))
+
 if __name__=="__main__":
     
     onlocal = False
     vocab = "data/gpt3semantics.txt"
     outfile = 'classpredictions.txt'
+    n_batch = 1250
+    
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
@@ -27,39 +32,48 @@ if __name__=="__main__":
         for line in lines:
             classes.append( line.strip() )
 
-    # debug: find max number of classes (must be processed in batches)
-    classes = classes[:1200]
-
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
-    text_inputs = torch.cat( [clip.tokenize(f"a photo of a {c}") for c in classes] ).to(device)
-    text_features = model.encode_text(text_inputs)
-    text_features /= text_features.norm(dim=-1, keepdim=True)
+    class_simils = { imgfn : torch.empty([1,0]) for imgfn in imgfns }
 
+    # collect class similarities
+    break_i = 0
+    for classesbatch in chunker(classes, n_batch):
+
+        text_inputs = torch.cat( [clip.tokenize(c) for c in classesbatch] ).to(device)
+        text_features = model.encode_text(text_inputs)
+        text_features /= text_features.norm(dim=-1, keepdim=True)  # TODO: norm across all?
+
+        for imgfn in imgfns:
+            image_input = preprocess( Image.open( os.path.join(imgdir, imgfn) ).convert("RGB") ).unsqueeze(0).to(device)
+
+            # Calculate features
+            with torch.no_grad():
+                image_features = model.encode_image(image_input)
+
+            # Pick the top 10 most similar labels for the imepdim=True)
+            similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+            class_simils[imgfn] = torch.cat( (class_simils[imgfn], similarity), dim=-1 )
+
+        break_i += 1
+        if break_i > 2:
+            break
+
+    # evaluate class similarities
     classpredfile = open(outfile, 'w')
-
     for imgfn in imgfns:
-        image_input = preprocess( Image.open( os.path.join(imgdir, imgfn) ).convert("RGB") ).unsqueeze(0).to(device)
-
-        # Calculate features
-        with torch.no_grad():
-            image_features = model.encode_image(image_input)
-
-        # Pick the top 10 most similar labels for the image
-        image_features /= image_features.norm(dim=-1, keepdim=True)
-        similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-
-        pdb.set_trace()  # was ist similarity und kann man concat?
         
-        values, indices = similarity[0].topk(10)   # auto-chooses last dimension
+        # take top 10 classes
+        vals, idxs = class_simils[imgfn][0].topk(10)   # auto-chooses last dimension
 
         # Print the result
         #print("\nTop predictions:\n")
         #for value, index in zip(values, indices):
         #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
 
-        topclasses = [classes[idx] for idx in indices]
-        classpredline = imgfn+"," + ','.join(topclasses)
+        classpredline = imgfn
+        for val, idx in zip(vals, idxs):
+            classpredline += f',{100 * val.item():.2f}%|classes[idx]'
 
         classpredfile.write('%s\n' % classpredline)
     
