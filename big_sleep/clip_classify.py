@@ -39,7 +39,6 @@ if __name__=="__main__":
 
     # collect class similarities
     cur_i = 0
-    break_i = 0
     for classesbatch in chunker(classes, n_batch):
         print(break_i)
 
@@ -63,9 +62,6 @@ if __name__=="__main__":
         del text_features
         torch.cuda.empty_cache()
 
-        break_i += 1
-        if break_i > 3:
-            break
 
     # evaluate class similarities
     classpredfile = open(outfile, 'w')
@@ -73,11 +69,6 @@ if __name__=="__main__":
         
         # take top 5 classes
         vals, idxs = class_simils[imgfn][0].topk(5)   # auto-chooses last dimension
-
-        # Print the result
-        #print("\nTop predictions:\n")
-        #for value, index in zip(values, indices):
-        #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
 
         classpredline = imgfn
         for val, idx in zip(vals, idxs):
