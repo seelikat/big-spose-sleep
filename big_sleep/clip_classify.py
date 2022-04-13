@@ -34,7 +34,7 @@ if __name__=="__main__":
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
-    class_simils = { imgfn : torch.empty([1,0]) for imgfn in imgfns }
+    class_simils = { imgfn : torch.empty([1,0]).to(device) for imgfn in imgfns }
 
     # collect class similarities
     break_i = 0
