@@ -27,7 +27,7 @@ if __name__=="__main__":
         imgdir = '/LOCAL/kamue/thingstestset'
         #imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
 
-    imgfns = glob.glob( os.path.join(imgdir, '*.png') )   # *.{jpg,png} ging nicht
+    imgfns = glob.glob( os.path.join(imgdir, '*.jpg') )   # *.{jpg,png} ging nicht
 
     classes = []
     with open(vocab, 'r') as handle:
