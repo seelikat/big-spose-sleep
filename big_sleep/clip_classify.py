@@ -9,7 +9,8 @@ from torchvision.datasets import CIFAR100
 if __name__=="__main__":
     
     onlocal = False
-    vocab = "data/things_classes.txt"   # imagenet21k_wordnet_lemmas.txt things_classes.txt
+    vocab = "data/things_classes.txt"
+    # imagenet21k_wordnet_lemmas.txt things_classes.txt TODO clip vocab  TODO hannes
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
     if onlocal:
@@ -30,7 +31,7 @@ if __name__=="__main__":
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
-    text_inputs = torch.cat( [clip.tokenize(f"a photo of a {c}") for c in classes] ).to(device)
+    text_inputs = torch.cat( [clip.tokenize(f"a photo of a {c}") for c in classes] ).to( US)
     text_features = model.encode_text(text_inputs)
     text_features /= text_features.norm(dim=-1, keepdim=True)
 
