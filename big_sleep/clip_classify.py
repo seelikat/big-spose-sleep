@@ -56,12 +56,12 @@ if __name__=="__main__":
 
             # Pick the top 10 most similar labels for the imepdim=True)
             similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-            class_simils[imgfn][ 0, cur_i:cur_i+len(classesbatch) ] = similarity.data
+            class_simils[imgfn][ 0, cur_i:cur_i+len(classesbatch) ] = similarity
 
         cur_i += len(classesbatch)
 
-        del text_features
-        torch.cuda.empty_cache()
+        #del text_features
+        #torch.cuda.empty_cache()
 
         break_i += 1
         if break_i > 5:
