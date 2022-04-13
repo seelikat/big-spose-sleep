@@ -48,7 +48,7 @@ if __name__=="__main__":
         image_features /= image_features.norm(dim=-1, keepdim=True)
         similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
-        pdb.set_trace()  # was ist similarity und kann man concat?
+        #pdb.set_trace()  # was ist similarity und kann man concat?
         
         values, indices = similarity[0].topk(10)
 
