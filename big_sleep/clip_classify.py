@@ -53,8 +53,8 @@ if __name__=="__main__":
                 image_features = model.encode_image(image_input)
 
             # Pick the top 10 most similar labels for the imepdim=True)
-            similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1).detach()
-            class_simils[imgfn] = torch.cat( (class_simils[imgfn], similarity), dim=-1 )
+            similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+            class_simils[imgfn] = torch.cat( (class_simils[imgfn], similarity.detach()), dim=-1 )
 
         break_i += 1
         if break_i > 5:
