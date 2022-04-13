@@ -15,7 +15,7 @@ if __name__=="__main__":
     onlocal = False
     vocab = "data/things_classes.txt"
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
-    outfile = 'gpt3semantics.txt'
+    outfile = 'classpredictions.txt'
     n_batch = 500
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -24,10 +24,10 @@ if __name__=="__main__":
         imgdir = '/Users/katja/ownCloud/Share/roi_profiles'
         #imgdir = '/Users/katja/Documents/Data/THINGS/thingstestset'
     else:
-        imgdir = '/LOCAL/kamue/thingstestset'
-        #imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
+        #imgdir = '/LOCAL/kamue/thingstestset'
+        imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
 
-    imgfns = glob.glob( os.path.join(imgdir, '*.jpg') )
+    imgfns = glob.glob( os.path.join(imgdir, '*.png') )
 
     classes = []
     with open(vocab, 'r') as handle:
