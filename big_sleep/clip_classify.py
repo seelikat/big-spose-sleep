@@ -16,7 +16,7 @@ if __name__=="__main__":
     vocab = "data/gpt3semantics.txt"
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     outfile = 'classpredictions.txt'
-    n_batch = 500
+    n_batch = 750
     
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
