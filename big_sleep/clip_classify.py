@@ -71,8 +71,8 @@ if __name__=="__main__":
     classpredfile = open(outfile, 'w')
     for imgfn in imgfns:
         
-        # take top 10 classes
-        vals, idxs = class_simils[imgfn][0].topk(10)   # auto-chooses last dimension
+        # take top 5 classes
+        vals, idxs = class_simils[imgfn][0].topk(5)   # auto-chooses last dimension
 
         pdb.set_trace()
 
@@ -83,7 +83,7 @@ if __name__=="__main__":
 
         classpredline = imgfn
         for val, idx in zip(vals, idxs):
-            classpredline += f',{100 * val.item():.2f}%|classes[idx]'
+            classpredline += f",{100 * val.item():.2f}%|" + classes[idx]
 
         classpredfile.write('%s\n' % classpredline)
     
