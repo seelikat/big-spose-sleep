@@ -35,7 +35,7 @@ if __name__=="__main__":
         for line in lines:
             classes.append( line.strip() )
 
-    model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
+    model, preprocess = clip.load('ViT-L/14', device)   # ViT-B/32 || ViT-L/14
 
     class_simils = { imgfn : torch.zeros([1,len(classes)]).to(device) for imgfn in imgfns }
 
