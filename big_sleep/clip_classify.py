@@ -13,11 +13,11 @@ def chunker(seq, size):
 if __name__=="__main__":
     
     onlocal = False
-    vocab = "data/gpt3semantics.txt"
+    vocab = "data/things_classes.txt"
+    # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     outfile = 'classpredictions.txt'
     n_batch = 500
     
-    # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
     if onlocal:
