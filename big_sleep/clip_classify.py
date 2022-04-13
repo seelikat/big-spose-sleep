@@ -10,6 +10,7 @@ if __name__=="__main__":
     
     onlocal = False
     vocab = "data/gpt3semantics.txt"
+    outfile = 'classpredictions.txt'
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
@@ -35,7 +36,7 @@ if __name__=="__main__":
     text_features = model.encode_text(text_inputs)
     text_features /= text_features.norm(dim=-1, keepdim=True)
 
-    classpredfile = open('classpredictions.txt', 'w')
+    classpredfile = open(outfile, 'w')
 
     for imgfn in imgfns:
         image_input = preprocess( Image.open( os.path.join(imgdir, imgfn) ).convert("RGB") ).unsqueeze(0).to(device)
@@ -48,9 +49,9 @@ if __name__=="__main__":
         image_features /= image_features.norm(dim=-1, keepdim=True)
         similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
-        #pdb.set_trace()  # was ist similarity und kann man concat?
+        pdb.set_trace()  # was ist similarity und kann man concat?
         
-        values, indices = similarity[0].topk(10)
+        values, indices = similarity[0].topk(10)   # auto-chooses last dimension
 
         # Print the result
         #print("\nTop predictions:\n")
