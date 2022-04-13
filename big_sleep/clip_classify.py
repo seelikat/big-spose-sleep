@@ -9,7 +9,7 @@ from torchvision.datasets import CIFAR100
 if __name__=="__main__":
     
     onlocal = False
-    vocab = "data/things_classes.txt"
+    vocab = "data/gpt3semantics.txt"
     # imagenet21k_wordnet_lemmas.txt things_classes.txt TODO clip vocab  TODO hannes
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
