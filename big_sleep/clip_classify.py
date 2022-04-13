@@ -10,7 +10,7 @@ if __name__=="__main__":
     
     onlocal = False
     vocab = "data/gpt3semantics.txt"
-    # imagenet21k_wordnet_lemmas.txt things_classes.txt TODO clip vocab  TODO hannes
+    # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
     
     if onlocal:
@@ -47,6 +47,9 @@ if __name__=="__main__":
         # Pick the top 5 most similar labels for the image
         image_features /= image_features.norm(dim=-1, keepdim=True)
         similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
+
+        #pdb.set_trace()
+        
         values, indices = similarity[0].topk(5)
 
         # Print the result
