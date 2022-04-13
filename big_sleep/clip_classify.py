@@ -73,7 +73,7 @@ if __name__=="__main__":
 
         classpredline = imgfn.split('/')[-1]
         for val, idx in zip(vals, idxs):
-            classpredline += f",{100 * val.item():.2f}%|" + classes[idx]
+            classpredline += f",{100 * val.item()}%|" + classes[idx]
 
         classpredfile.write('%s\n' % classpredline)
     
