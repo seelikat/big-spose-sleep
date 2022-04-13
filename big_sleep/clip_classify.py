@@ -44,13 +44,13 @@ if __name__=="__main__":
         with torch.no_grad():
             image_features = model.encode_image(image_input)
 
-        # Pick the top 5 most similar labels for the image
+        # Pick the top 10 most similar labels for the image
         image_features /= image_features.norm(dim=-1, keepdim=True)
         similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
 
         #pdb.set_trace()
         
-        values, indices = similarity[0].topk(5)
+        values, indices = similarity[0].topk(10)
 
         # Print the result
         #print("\nTop predictions:\n")
@@ -58,7 +58,7 @@ if __name__=="__main__":
         #    print(f"{classes[index]:>16s}: {100 * value.item():.2f}%")
 
         topclasses = [classes[idx] for idx in indices]
-        classpredline = imgfn+": " + '|'.join(topclasses)
+        classpredline = imgfn+"," + ','.join(topclasses)
 
         classpredfile.write('%s\n' % classpredline)
     
