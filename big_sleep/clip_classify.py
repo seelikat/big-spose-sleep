@@ -64,7 +64,7 @@ if __name__=="__main__":
         torch.cuda.empty_cache()
 
         break_i += 1
-        if break_i > 5:
+        if break_i > 3:
             break
 
     # evaluate class similarities
@@ -73,6 +73,8 @@ if __name__=="__main__":
         
         # take top 10 classes
         vals, idxs = class_simils[imgfn][0].topk(10)   # auto-chooses last dimension
+
+        pdb.set_trace()
 
         # Print the result
         #print("\nTop predictions:\n")
