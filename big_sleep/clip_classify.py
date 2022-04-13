@@ -40,7 +40,6 @@ if __name__=="__main__":
     # collect class similarities
     cur_i = 0
     for classesbatch in chunker(classes, n_batch):
-        print(break_i)
 
         text_inputs = torch.cat( [clip.tokenize(c) for c in classesbatch] ).to(device)
         text_features = model.encode_text(text_inputs)
