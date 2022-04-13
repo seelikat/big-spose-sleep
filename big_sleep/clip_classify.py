@@ -14,7 +14,7 @@ if __name__=="__main__":
     onlocal = False
     vocab = "data/gpt3semantics.txt"
     outfile = 'classpredictions.txt'
-    n_batch = 1000
+    n_batch = 1250
     
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
