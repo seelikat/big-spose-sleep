@@ -14,7 +14,7 @@ if __name__=="__main__":
     onlocal = False
     vocab = "data/gpt3semantics.txt"
     outfile = 'classpredictions.txt'
-    n_batch = 500
+    n_batch = 300
     
     # imagenet21k_wordnet_lemmas.txt things_classes.txt gpt3semantics.txt  TODO clip vocab?
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -56,7 +56,7 @@ if __name__=="__main__":
             class_simils[imgfn] = torch.cat( (class_simils[imgfn], similarity), dim=-1 )
 
         break_i += 1
-        if break_i > 2:
+        if break_i > 5:
             break
 
     # evaluate class similarities
