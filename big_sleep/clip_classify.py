@@ -56,7 +56,7 @@ if __name__=="__main__":
 
             # Pick the top 10 most similar labels for the imepdim=True)
             similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-            class_simils[imgfn][ 0, cur_i:cur_i+len(classesbatch) ] = similarity
+            class_simils[imgfn][ 0, cur_i:cur_i+len(classesbatch) ] = similarity.detach()
 
         cur_i += len(classesbatch)
 
