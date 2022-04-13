@@ -34,9 +34,10 @@ if __name__=="__main__":
 
     model, preprocess = clip.load('ViT-B/32', device)   # TODO: replace with ViT-L/14
 
-    class_simils = { imgfn : torch.empty([1,0]).to(device) for imgfn in imgfns }
+    class_simils = { imgfn : torch.empty([1,len(classes)]).to(device) for imgfn in imgfns }
 
     # collect class similarities
+    cur_i = 0
     break_i = 0
     for classesbatch in chunker(classes, n_batch):
         print(break_i)
@@ -54,7 +55,9 @@ if __name__=="__main__":
 
             # Pick the top 10 most similar labels for the imepdim=True)
             similarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)
-            class_simils[imgfn] = torch.cat( (class_simils[imgfn], similarity.detach()), dim=-1 )
+            class_simils[imgfn][ 0, cur_i:cur_i+len(classesbatch) ] = similarity
+
+        cur_i += len(classesbatch)
 
         break_i += 1
         if break_i > 5:
