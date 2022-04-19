@@ -144,7 +144,7 @@ def rand_cutout(image, size, center_bias=False, center_focus=2):
     return cutout
 
 # load clip
-perceptor, normalize_image = load('ViT-L/14', jit = False)
+perceptor, normalize_image = load('ViT-L/14', jit = False)   # ViT-B/32
 
 # load biggan
 class Latents(torch.nn.Module):

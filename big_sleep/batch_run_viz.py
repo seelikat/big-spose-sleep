@@ -8,13 +8,12 @@ from pathlib import Path
 import sys
 
 
-# TODO: redo with --larger model
 if __name__=="__main__":
 
     reps = 5
     sposeprofiles = glob.glob( "*profile.txt" )
 
-    for ri in range(5, reps+1): 
+    for ri in range(reps): 
         for sposeprofilefn in sposeprofiles: 
             print(sposeprofilefn)
             #subprocess.Popen( "/LOCAL/kamue/anaconda3/bin/python start_test_run.py " + sposeprofilefn , cwd=os.getcwd())
