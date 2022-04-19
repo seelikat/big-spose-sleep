@@ -27,7 +27,9 @@ if __name__=="__main__":
         imgdir = '/LOCAL/kamue/thingstestset'
         #imgdir = '/LOCAL/kamue/big-spose-sleep/big_sleep'
 
-    imgfns = glob.glob( os.path.join(imgdir, '*.jpg') )   # *.{jpg,png} ging nicht
+    imgfns = []
+    for imtype in ['*.jpg', '*.png']:
+        imgfns += glob.glob( os.path.join(imgdir, imtype) )
 
     classes = []
     with open(vocab, 'r') as handle:
@@ -35,7 +37,7 @@ if __name__=="__main__":
         for line in lines:
             classes.append( line.strip() )
 
-    model, preprocess = clip.load('ViT-L/14', device)   # ViT-B/32 || ViT-L/14
+    model, preprocess = clip.load('ViT-B/32', device)   # ViT-B/32 || ViT-L/14
 
     class_simils = { imgfn : torch.zeros([1,len(classes)]).to(device) for imgfn in imgfns }
 
